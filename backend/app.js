@@ -6,7 +6,7 @@ const port = 5000;
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-     host: '172.22.0.4',
+     host: 'dbhost',
     //  host: 'localhost',
      user: 'root',
      password: 'hodooai0000',
@@ -17,37 +17,29 @@ var connection = mysql.createConnection({
  
  connection.connect();
 
-
 // CORS 설정
 app.use(cors());
-app.use(bodyParser.json());
-app.get("/", (req, res) => {
-// 기능s
 
+//  JSON 파싱
+app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+// 기능
 connection.query("SELECT * FROM test", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     res.send(result);
   });
-
-
 });
-
 
 
 app.post("/save", (req, res) => {
     // 기능
-    console.log(req.body.title);
-    console.log("세이브 요청옴");
-
     var sql = `INSERT INTO test (test) VALUES ('${req.body.title}')`;
     connection.query(sql, function (err, result) {
       if (err) throw err;
       console.log("1 record inserted");
     });
-
-
-
     });
 
 app.listen(5000, function() {

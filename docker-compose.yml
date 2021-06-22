@@ -3,11 +3,13 @@ services:
   database:
     # Dockerfile이 있는 위치
     build: ./database
+    extra_hosts:
+      - "dbhost:152.200.20.2"
     # 내부에서 개방할 포트 : 외부에서 접근할 포트
     ports:
       - "3306:3306"
     networks:
-      - test_net
+      - test_net # 커스텀 네트워크 사용
   frontend:
     build: ./frontend
     # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
@@ -16,7 +18,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - test_net
+      - test_net # 커스텀 네트워크 사용
 
   backend:
     build: ./backend
@@ -25,12 +27,14 @@ services:
       - ./backend:/usr/src/app
     ports:
       - "5000:5000"
+    # extra_hosts:
+    #   - "test_net:database"
     networks:
-      - test_net
+      - test_net # 커스텀 네트워크 사용
 
 networks:
-  test_net:
-    driver: bridge
+  test_net: # 내가 만든 커스텀 네트워크명
+    driver: bridge # 커스템 네트워크 연결방식 bridge, Host방식등 4~5개 정도있는데 보통 bridge방식을 많이 사용한다.
   
   
     
