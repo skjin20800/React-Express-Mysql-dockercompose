@@ -3,8 +3,8 @@ services:
   database:
     # Dockerfile이 있는 위치
     build: ./database
-    extra_hosts:
-      - "dbhost:152.200.20.2"
+    # 외부에 공개할 host명
+    hostname: dbhost
     # 내부에서 개방할 포트 : 외부에서 접근할 포트
     ports:
       - "3306:3306"
@@ -27,10 +27,9 @@ services:
       - ./backend:/usr/src/app
     ports:
       - "5000:5000"
-    # extra_hosts:
-    #   - "test_net:database"
     networks:
       - test_net # 커스텀 네트워크 사용
+    
 
 networks:
   test_net: # 내가 만든 커스텀 네트워크명

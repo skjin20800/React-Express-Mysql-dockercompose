@@ -4,8 +4,8 @@ FROM mysql:5.7
 # 실전에서는 비밀번호 등을 이곳에 입력하지 말 것!
 # 서버의 환경변수 등을 활용하세요.
 ENV MYSQL_USER test
-ENV MYSQL_PASSWORD test0000
-ENV MYSQL_ROOT_PASSWORD test0000
+ENV MYSQL_PASSWORD hodooai0000
+ENV MYSQL_ROOT_PASSWORD hodooai0000
 ENV MYSQL_DATABASE test
 
 # 도커환경에서 컨테이너 생성시 스크립트를 실행하는 폴더로

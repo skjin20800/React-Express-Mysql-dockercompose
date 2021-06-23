@@ -7,12 +7,10 @@ const port = 5000;
 var mysql = require('mysql');
 var connection = mysql.createConnection({
      host: 'dbhost',
-    //  host: 'localhost',
      user: 'root',
      password: 'hodooai0000',
      database: 'test',
      port: '3306'
-    // port: '3306'
  });
  
  connection.connect();
