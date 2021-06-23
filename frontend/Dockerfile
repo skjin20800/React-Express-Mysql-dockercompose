@@ -1,17 +1,20 @@
-FROM node:14.17.1
+# alpine 이미지 받기
+FROM alpine:3.10
 
-# 이미지 생성 과정에서 실행할 명령어
-RUN npm install
-RUN npm install react-scripts@3.0.1 -g
+# node js 받기
+RUN apk add --update nodejs
 
-# 이미지 내에서 명령어를 실행할(현 위치로 잡을) 디렉토리 설정
-WORKDIR /home/node/app
+#워크 디렉토리 설정
+WORKDIR /app
+
+# Dockerfiler의 위치를 기준으로 package*.json의 파일을 /app/에 복사한다
+COPY package*.json /app
+
+# npm 다운로드
+RUN apk add --update npm
+
+# 현재 디렉토리의 모든 파일을 /app에 저장
+COPY . /app
 
 # 컨테이너 실행시 실행할 명령어
 CMD ["npm","start"]
-
-# 이미지 생성 명령어 (현 파일과 같은 디렉토리에서)
-# docker build -t {이미지명} .
-
-# 컨테이너 생성 & 실행 명령어
-# docker run --name {컨테이너명} -v $(pwd):/home/node/app -p 8080:8080 {이미지명}
