@@ -14,10 +14,10 @@ const SaveForm = (props) => {
     });
   };
 
-  const submitBook = (e) => {
+  const submitTitle = (e) => {
     e.preventDefault(); // submit이 action을 안타고 자기 할일을 그만함.
 
-    fetch('http://localhost:5000/save', {
+    fetch('http://3.15.160.45:5000/save', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -29,13 +29,13 @@ const SaveForm = (props) => {
         if (res !== null) {
           props.history.push('/');
         } else {
-          alert('책 등록에 실패하였습니다.');
+          alert('데이터 전송에 실패하였습니다.');
         }
       });
   };
 
   return (
-    <Form onSubmit={submitBook}>
+    <Form onSubmit={submitTitle}>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Title</Form.Label>
         <Form.Control
