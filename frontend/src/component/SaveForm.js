@@ -16,9 +16,11 @@ const SaveForm = (props) => {
 
   const submitTitle = (e) => {
     e.preventDefault(); // submit이 action을 안타고 자기 할일을 그만함.
-
-    fetch('http://3.15.160.45:5000/save', {
-      method: 'POST',
+    
+    
+    fetch(`http://172.18.0.5:5000/save`, {
+    // fetch(`http://backendhost:5000/save`, {
+        method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },

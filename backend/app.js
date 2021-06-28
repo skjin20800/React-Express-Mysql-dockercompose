@@ -32,6 +32,7 @@ connection.query("SELECT * FROM test", function (err, result, fields) {
 
 
 app.post("/save", (req, res) => {
+    
     // 기능
     var sql = `INSERT INTO test (test) VALUES ('${req.body.title}')`;
     connection.query(sql, function (err, result) {
