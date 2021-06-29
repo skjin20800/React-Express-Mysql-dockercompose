@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
  });
  
  connection.connect();
-
+ 
 // CORS 설정
 app.use(cors());
 
@@ -23,18 +23,21 @@ app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
 // 기능
+
+
 connection.query("SELECT * FROM test", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     res.send(result);
+    // res.send('dbhost');
   });
 });
 
 
-app.post("/save", (req, res) => {
-    
+app.post("/api/save", (req, res) => {
+    console.log(req.body.title.title);
     // 기능
-    var sql = `INSERT INTO test (test) VALUES ('${req.body.title}')`;
+    var sql = `INSERT INTO test (test) VALUES ('${req.body.title.title}')`;
     connection.query(sql, function (err, result) {
       if (err) throw err;
       console.log("1 record inserted");

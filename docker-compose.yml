@@ -1,47 +1,48 @@
-version: '3'
+version: "3"
 services:
   database:
     # Dockerfile이 있는 위치
-    image: skjin20800/test2:11
+    image: skjin20800/basicnginx:database1.0
     # 외부에 공개할 host명
     hostname: dbhost
-    # 내부에서 개방할 포트 : 외부에서 접근할 포트
     ports:
       - "3306:3306"
     volumes:
       - todo-mysql-data:/var/lib/mysql
     networks:
       - test_net # 커스텀 네트워크 사용
-  frontend:
-    # image: skjin20800/test2:front1.5
-    build: ./frontend
-    hostname: frontendhost
-    depends_on:
-      - database
-    ports:
-      - "3000:3000"
-    # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
-    networks:
-      - test_net # 커스텀 네트워크 사용
   backend:
-    build: ./backend
-    # image: skjin20800/test2:10
     hostname: backendhost
-        # 연결할 외부 디렉토리 : 컨테이너 내 디렉토리
+    # image: skjin20800/basicnginx:nodejs2.0
+    build: ./backend
+    environment:
+      backend: frontend
     ports:
       - "5000:5000"
     depends_on:
       - database
     networks:
       - test_net # 커스텀 네트워크 사용
+  frontend:
+    hostname: frontendhost
+    # image: skjin20800/basicnginx:react2.4
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    networks:
+      - test_net
   nginx:
-    # image: skjin20800/test2:nginx1.4
+    # image: skjin20800/basicnginx:nginx2.1
     build: ./nginx
     hostname: nginxhost
     ports:
       - "80:80"
     networks:
-      - test_net # 커스텀 네트워크 사용
+      - test_net
+    depends_on:
+      - frontend
 
 networks:
   test_net: # 내가 만든 커스텀 네트워크명
@@ -49,8 +50,3 @@ networks:
 
 volumes:
   todo-mysql-data:
-  frontend-volume:
-
-
-  
-    

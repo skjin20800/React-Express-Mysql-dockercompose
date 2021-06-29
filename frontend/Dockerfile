@@ -1,4 +1,4 @@
-# docker 빌드 이미지로 nginx 넣기
+# # docker 빌드 이미지로 nginx 넣기
 
 # FROM alpine:3.10
 # # root 에 app 폴더를 생성
@@ -10,9 +10,6 @@
 
 # # host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
 # ADD ./build ./build
-
-
-
 
 
 
@@ -33,6 +30,8 @@ RUN apk add --update npm
 
 # # 현재 디렉토리의 모든 파일을 /app에 저장
 COPY . /app/
+
+# RUN npm install axios
 
 EXPOSE 3000
 
